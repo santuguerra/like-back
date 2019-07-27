@@ -10,12 +10,12 @@ api.get('/', (req, res) => {
 
 api.get('/users/:id', userController.findUserById)
 
-api.post('/register', userController.register)
+api.post('/users', userController.createOrGetUser)
 
 api.get('/likes/:id', likeController.getLikeByUserId)
 
 api.post('/likes/:id', likeController.postLike)
 
-api.post('/login', userController.login)
+api.delete('/likes/:id', likeController.deleteLike)
 
 module.exports = api

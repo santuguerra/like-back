@@ -18,7 +18,7 @@ connection
 
         app.use('/', api)
 
-        app.listen(3000)
+        app.listen(8080)
 
     })
     .catch(err => console.error('Unable to connect to the database: ', err))

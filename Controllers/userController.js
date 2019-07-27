@@ -20,56 +20,35 @@ const findUserById = async (req, res) => {
 
     }
 
+    console.log('find user by id')
+
 }
 
-const register = async (req, res) => {
+const createOrGetUser = async (req, res) => {
 
-    const {username, mail, password} = req.body
+    const { mail } = req.body
 
-    const user = await User.create({
-        username,
-        mail,
-        password
+    let user = await User.findOne({
+        where: { mail: mail }
     })
+
+    if (user === null) {
+
+        user = await User.create({
+            mail
+        })
+
+    }
 
     res.json({
         response: user
     })
 
-}
-
-const login = async (req, res) => {
-
-    const { mail, password } = req.body
-    
-    let user = await User.findOne({
-        where: { mail }
-    })
-
-    if (user !== null) {
-
-        user = user.dataValues
-
-        if (user.password === password) {
-            res.status(200).json({
-                result: user
-            })
-        } else {
-            res.status(500).json({
-                error: 'Passowrd failures'
-            })
-        }
-
-    } else {
-        res.status(404).json({
-            error: 'Not found'
-        })
-    }
+    console.log('create or get user')
 
 }
 
 module.exports = {
     findUserById,
-    register,
-    login
+    createOrGetUser
 }
